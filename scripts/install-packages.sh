@@ -38,8 +38,9 @@ echo "📦 Installing DNF packages..."
 echo ""
 
 # Install build tools first (required for cargo compilation)
-echo -e "${YELLOW}→${NC} Installing build tools (gcc, make)..."
+echo -e "${YELLOW}→${NC} Installing build tools (gcc, make, perl, openssl)..."
 sudo dnf groupinstall -y "Development Tools" 2>/dev/null || sudo dnf install -y gcc gcc-c++ make cmake
+sudo dnf install -y perl-core openssl-devel pkg-config
 
 echo ""
 
