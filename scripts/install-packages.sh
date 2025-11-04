@@ -37,20 +37,22 @@ install_cargo_package() {
 echo "📦 Installing DNF packages..."
 echo ""
 
-# Core tools via DNF
-install_package "zellij" "zellij"
-install_package "starship" "starship"
+# Core tools via DNF (only ones available in Fedora repos)
 install_package "bat" "bat"
-install_package "fd" "fd-find"
-install_package "eza" "eza"
 install_package "lolcat" "lolcat"
 install_package "figlet" "figlet"
 install_package "neofetch" "neofetch"
 
-# Install Rust if not present
+# Install Rust if not present (needed for cargo packages)
 if ! command -v cargo &> /dev/null; then
+    echo ""
     echo -e "${YELLOW}→${NC} Installing Rust..."
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source "$HOME/.cargo/env"
+fi
+
+# Source cargo env if it exists
+if [ -f "$HOME/.cargo/env" ]; then
     source "$HOME/.cargo/env"
 fi
 
@@ -58,10 +60,17 @@ echo ""
 echo "🦀 Installing Rust-based tools..."
 echo ""
 
+# Core tools via Cargo (not in Fedora repos)
+install_cargo_package "zellij" "zellij"
+install_cargo_package "starship" "starship"
+install_cargo_package "fd" "fd-find"
+install_cargo_package "eza" "eza"
+install_cargo_package "rg" "ripgrep"
+
 # Additional Rust tools
 install_cargo_package "zoxide" "zoxide"
 install_cargo_package "dust" "du-dust"
-install_cargo_package "bottom" "bottom"
+install_cargo_package "btm" "bottom"
 install_cargo_package "procs" "procs"
 
 # Install no-more-secrets (nms)
