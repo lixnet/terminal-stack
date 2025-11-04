@@ -37,6 +37,12 @@ install_cargo_package() {
 echo "📦 Installing DNF packages..."
 echo ""
 
+# Install build tools first (required for cargo compilation)
+echo -e "${YELLOW}→${NC} Installing build tools (gcc, make)..."
+sudo dnf groupinstall -y "Development Tools" 2>/dev/null || sudo dnf install -y gcc gcc-c++ make cmake
+
+echo ""
+
 # Core tools via DNF (only ones available in Fedora repos)
 install_package "bat" "bat"
 install_package "lolcat" "lolcat"
