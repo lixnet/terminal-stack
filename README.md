@@ -47,7 +47,7 @@ All the latest Rust-based replacements for classic Unix tools:
 - **no-more-secrets (nms)** - Movie-style decryption effects
 - **lolcat** - Rainbow text
 - **figlet** - ASCII art text
-- **neofetch** - System info with style
+- **fastfetch** - Fast system info with style
 
 ---
 

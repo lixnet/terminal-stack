@@ -27,7 +27,7 @@
 - **no-more-secrets (nms)** - Decryption effect like in movies
 - **lolcat** - Rainbow text
 - **figlet** - ASCII art text
-- **neofetch** - System info display
+- **fastfetch** - Fast system info display
 
 ---
 

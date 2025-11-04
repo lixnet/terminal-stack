@@ -41,7 +41,7 @@ echo ""
 install_package "bat" "bat"
 install_package "lolcat" "lolcat"
 install_package "figlet" "figlet"
-install_package "neofetch" "neofetch"
+install_package "fastfetch" "fastfetch"
 
 # Install Rust if not present (needed for cargo packages)
 if ! command -v cargo &> /dev/null; then

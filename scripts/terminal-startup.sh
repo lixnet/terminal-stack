@@ -78,11 +78,11 @@ if [[ -z "$STARTUP_ANIMATED" ]]; then
     echo
 
     # System info with effects
-    if command -v neofetch &> /dev/null; then
+    if command -v fastfetch &> /dev/null; then
         if command -v lolcat &> /dev/null; then
-            neofetch --config none --disable packages | lolcat
+            fastfetch | lolcat
         else
-            neofetch --config none --disable packages
+            fastfetch
         fi
     fi
 
