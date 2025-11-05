@@ -9,7 +9,7 @@
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ENABLE_ANIMATIONS=true          # Set to false to disable all animations
 ENABLE_POKEMON=true              # Show random Pokemon on startup
-ENABLE_DECRYPTION=true           # Show decryption/nms effects
+ENABLE_DECRYPTION=yes           # Show decryption/nms effects
 ENABLE_SYSTEM_INFO=true          # Show fastfetch system info
 
 # Skip animations if not in interactive shell
@@ -175,20 +175,20 @@ if command -v procs &> /dev/null; then
 fi
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Zoxide (smarter cd)
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init bash)"
-    alias cd='z'
-fi
-
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Starship Prompt
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 if command -v starship &> /dev/null; then
     eval "$(starship init bash)"
+fi
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Zoxide (smarter cd) - Must be at the end!
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+    alias cd='z'
 fi
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
