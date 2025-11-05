@@ -18,11 +18,11 @@ copy_command "wl-copy" // Use "xclip -selection clipboard" for X11
 // Automatically copy selection to clipboard
 copy_on_select true
 
-// Layouts directory
-layout_dir "~/.config/zellij/layouts"
+// Layouts directory (optional)
+// layout_dir "~/.config/zellij/layouts"
 
-// Theme directory
-theme_dir "~/.config/zellij/themes"
+// Theme directory (commented out - using inline theme below)
+// theme_dir "~/.config/zellij/themes"
 
 // Simplified UI
 simplified_ui true
