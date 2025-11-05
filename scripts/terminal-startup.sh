@@ -4,11 +4,24 @@
 # ║   JaKooLit-inspired terminal effects              ║
 # ╚═══════════════════════════════════════════════════╝
 
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ANIMATION SETTINGS - Change these to customize!
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ENABLE_ANIMATIONS=true          # Set to false to disable all animations
+ENABLE_POKEMON=true              # Show random Pokemon on startup
+ENABLE_DECRYPTION=true           # Show decryption/nms effects
+ENABLE_SYSTEM_INFO=true          # Show fastfetch system info
+
 # Skip animations if not in interactive shell
 [[ $- != *i* ]] && return
 
 # Skip animations for certain terminals or sessions
 if [[ "$TERM" == "dumb" ]] || [[ -n "$INSIDE_EMACS" ]]; then
+    return
+fi
+
+# Master kill switch for all animations
+if [[ "$ENABLE_ANIMATIONS" != "true" ]]; then
     return
 fi
 
@@ -62,23 +75,30 @@ if [[ -z "$STARTUP_ANIMATED" ]]; then
     clear
 
     # Random Pokemon (if available)
-    if command -v pokemon-colorscripts &> /dev/null; then
+    if [[ "$ENABLE_POKEMON" == "true" ]] && command -v pokemon-colorscripts &> /dev/null; then
         pokemon-colorscripts -r --no-title
         echo
     fi
 
     # System information with decryption effect
-    if command -v figlet &> /dev/null && command -v nms &> /dev/null; then
-        WELCOME_MSG="TERMINAL ONLINE"
-        figlet -f slant "$WELCOME_MSG" 2>/dev/null | nms -a -f green
-    elif command -v figlet &> /dev/null && command -v lolcat &> /dev/null; then
-        figlet -f slant "TERMINAL ONLINE" 2>/dev/null | lolcat
+    if [[ "$ENABLE_DECRYPTION" == "true" ]]; then
+        if command -v figlet &> /dev/null && command -v nms &> /dev/null; then
+            WELCOME_MSG="TERMINAL ONLINE"
+            figlet -f slant "$WELCOME_MSG" 2>/dev/null | nms -a -f green
+        elif command -v figlet &> /dev/null && command -v lolcat &> /dev/null; then
+            figlet -f slant "TERMINAL ONLINE" 2>/dev/null | lolcat
+        fi
+    else
+        # No decryption, just show with lolcat
+        if command -v figlet &> /dev/null && command -v lolcat &> /dev/null; then
+            figlet -f slant "TERMINAL ONLINE" 2>/dev/null | lolcat
+        fi
     fi
 
     echo
 
     # System info with effects
-    if command -v fastfetch &> /dev/null; then
+    if [[ "$ENABLE_SYSTEM_INFO" == "true" ]] && command -v fastfetch &> /dev/null; then
         if command -v lolcat &> /dev/null; then
             fastfetch | lolcat
         else
@@ -89,23 +109,25 @@ if [[ -z "$STARTUP_ANIMATED" ]]; then
     echo
 
     # Random cyberpunk quote with nms effect
-    QUOTES=(
-        "ACCESS GRANTED. WELCOME TO THE SYSTEM."
-        "INITIALIZING NEURAL INTERFACE..."
-        "CONNECTING TO THE MATRIX..."
-        "BREACH PROTOCOL INITIATED..."
-        "SYSTEM COMPROMISED. ACCESS GRANTED."
-        "DECRYPTING MAINFRAME..."
-        "LOADING CYBER WARFARE SUITE..."
-        "HACK THE PLANET!"
-    )
+    if [[ "$ENABLE_DECRYPTION" == "true" ]]; then
+        QUOTES=(
+            "ACCESS GRANTED. WELCOME TO THE SYSTEM."
+            "INITIALIZING NEURAL INTERFACE..."
+            "CONNECTING TO THE MATRIX..."
+            "BREACH PROTOCOL INITIATED..."
+            "SYSTEM COMPROMISED. ACCESS GRANTED."
+            "DECRYPTING MAINFRAME..."
+            "LOADING CYBER WARFARE SUITE..."
+            "HACK THE PLANET!"
+        )
 
-    RANDOM_QUOTE="${QUOTES[$RANDOM % ${#QUOTES[@]}]}"
+        RANDOM_QUOTE="${QUOTES[$RANDOM % ${#QUOTES[@]}]}"
 
-    if command -v nms &> /dev/null; then
-        echo "$RANDOM_QUOTE" | nms -a -f cyan
-    else
-        print_lolcat "$RANDOM_QUOTE"
+        if command -v nms &> /dev/null; then
+            echo "$RANDOM_QUOTE" | nms -a -f cyan
+        else
+            print_lolcat "$RANDOM_QUOTE"
+        fi
     fi
 
     echo
